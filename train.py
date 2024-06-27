@@ -96,14 +96,18 @@ def main():
         print('Loaded model from ', args.load)
     
     for epoch in tqdm(range(start_epoch, args.max_epochs + 1), desc = 'Current epoch'):
-        train(epoch, image_extractor, model, trainloader, optimizer, writer)
-        if model.is_open and args.model=='compcos' and ((epoch+1)%args.update_feasibility_every)==0 :
-            print('Updating feasibility scores')
-            model.update_feasibility(epoch+1.)
+        try:
+            train(epoch, image_extractor, model, trainloader, optimizer, writer)
+            if model.is_open and args.model=='compcos' and ((epoch+1)%args.update_feasibility_every)==0 :
+                print('Updating feasibility scores')
+                model.update_feasibility(epoch+1.)
 
-        if epoch % args.eval_val_every == 0:
-            with torch.no_grad(): # todo: might not be needed
-                test(epoch, image_extractor, model, testloader, evaluator_val, writer, args, logpath)
+            if epoch % args.eval_val_every == 0:
+                with torch.no_grad(): # todo: might not be needed
+                    test(epoch, image_extractor, model, testloader, evaluator_val, writer, args, logpath)
+        except Exception as e:
+            continue
+            print("Bug training...")
     print('Best AUC achieved is ', best_auc)
     print('Best HM achieved is ', best_hm)
 
