@@ -35,14 +35,14 @@ cd $FOLDER
 tar -zxvf attr-ops-data.tar.gz --strip 1
 
 # MIT-States
-unzip mitstates.zip 'release_dataset/images/*' -d mit-states/
-mv mit-states/release_dataset/images mit-states/images/
-rm -r mit-states/release_dataset
-rename "s/ /_/g" mit-states/images/*
+# unzip mitstates.zip 'release_dataset/images/*' -d mit-states/
+# mv mit-states/release_dataset/images mit-states/images/
+# rm -r mit-states/release_dataset
+# rename "s/ /_/g" mit-states/images/*
 
 # UT-Zappos50k
-# unzip utzap.zip -d ut-zap50k/
-# mv ut-zap50k/ut-zap50k-images ut-zap50k/_images/
+unzip utzap.zip -d ut-zap50k/
+mv ut-zap50k/ut-zap50k-images ut-zap50k/_images/
 
 # C-GQA
 # unzip cgqa.zip -d cgqa/
